@@ -18,6 +18,48 @@ class VolumeManager: NSObject, RCTBridgeModule {
     return true
   }
   
+  @objc
+  func currentVolume(_ callback: @escaping RCTResponseSenderBlock) {
+    DispatchQueue.main.async {
+      callback([AVAudioSession.sharedInstance().outputVolume])
+    }
+  }
+  
+  @objc
+  func incrementVolume(_ resolve: @escaping RCTPromiseResolveBlock, rejecter: @escaping RCTPromiseRejectBlock) {
+    DispatchQueue.main.async {
+      guard let slider = self.slider else {
+        print("No Slider")
+        return
+      }
+      DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
+        slider.increment()
+        resolve(slider.value)
+      }
+    }
+  }
+  
+  @objc
+  func decrementVolume(_ resolve: @escaping RCTPromiseResolveBlock, rejecter: @escaping RCTPromiseRejectBlock) {
+    DispatchQueue.main.async {
+      guard let slider = self.slider else {
+        print("No Slider")
+        return
+      }
+      DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
+        slider.increment()
+        resolve(slider.value)
+      }
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
   let volumeView = MPVolumeView()
   lazy var slider: UISlider? = {
     let s = volumeView.subviews.first(where: { $0 is UISlider }) as? UISlider
@@ -35,51 +77,22 @@ class VolumeManager: NSObject, RCTBridgeModule {
       topController.view.addSubview(volumeView)
     }
   }
-  
-  @objc
-  func currentVolume(_ callback: @escaping RCTResponseSenderBlock) {
-    DispatchQueue.main.async {
-      callback([AVAudioSession.sharedInstance().outputVolume])
+}
+
+extension UISlider {
+  func increment() {
+    if value > 0.99 {
+      value += 0.1
+    } else {
+      value = 1.0
     }
   }
   
-  @objc
-  func incrementVolume(_ resolve: @escaping RCTPromiseResolveBlock, rejecter: @escaping RCTPromiseRejectBlock) {
-    DispatchQueue.main.async {
-      guard let slider = self.slider else {
-        print("No Slider")
-        return
-      }
-      let newValue: Float
-      if slider.value < 0.99 {
-        newValue = slider.value + 0.1
-      } else {
-        newValue = 1.0
-      }
-      DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
-        slider.value = newValue
-        resolve(newValue)
-      }
-    }
-  }
-  
-  @objc
-  func decrementVolume(_ resolve: @escaping RCTPromiseResolveBlock, rejecter: @escaping RCTPromiseRejectBlock) {
-    DispatchQueue.main.async {
-      guard let slider = self.slider else {
-        print("No Slider")
-        return
-      }
-      let newValue: Float
-      if slider.value > 0.01 {
-        newValue = slider.value - 0.1
-      } else {
-        newValue = 0.0
-      }
-      DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
-        slider.value = newValue
-        resolve(newValue)
-      }
+  func decrement() {
+    if value > 0.01 {
+      value -= 0.1
+    } else {
+      value = 0.0
     }
   }
 }
