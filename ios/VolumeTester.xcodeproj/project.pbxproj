@@ -19,8 +19,8 @@
 		5C00984FCB24CB4B60090272 /* libPods-VolumeTester-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C303B29402592C45B0D2BF2D /* libPods-VolumeTester-tvOSTests.a */; };
 		9D47845D36027DEB20A9904A /* libPods-VolumeTester-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E490D478FF95010B7AA9D5B3 /* libPods-VolumeTester-tvOS.a */; };
 		9EB40F35767E3B2D3AD4D952 /* libPods-VolumeTesterTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 895747B39C3B3385626938EB /* libPods-VolumeTesterTests.a */; };
-		A14B5D14230B3BEC00696FEB /* VolumeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14B5D13230B3BEC00696FEB /* VolumeManager.swift */; };
-		A14B5D16230B3C0800696FEB /* VolumeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A14B5D15230B3C0800696FEB /* VolumeManager.m */; };
+		A14B5D14230B3BEC00696FEB /* VolumeModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14B5D13230B3BEC00696FEB /* VolumeModule.swift */; };
+		A14B5D16230B3C0800696FEB /* VolumeModule.m in Sources */ = {isa = PBXBuildFile; fileRef = A14B5D15230B3C0800696FEB /* VolumeModule.m */; };
 		F90EAE4B1F3EDB8CE26B78A5 /* libPods-VolumeTester.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C908F6F1A79D47044969FBAC /* libPods-VolumeTester.a */; };
 /* End PBXBuildFile section */
 
@@ -61,8 +61,8 @@
 		6A27D34DFC893BDC48296522 /* Pods-VolumeTester-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VolumeTester-tvOS.release.xcconfig"; path = "Target Support Files/Pods-VolumeTester-tvOS/Pods-VolumeTester-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		895747B39C3B3385626938EB /* libPods-VolumeTesterTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VolumeTesterTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A14B5D12230B3BEB00696FEB /* VolumeTester-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VolumeTester-Bridging-Header.h"; sourceTree = "<group>"; };
-		A14B5D13230B3BEC00696FEB /* VolumeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VolumeManager.swift; path = VolumeTester/VolumeManager.swift; sourceTree = "<group>"; };
-		A14B5D15230B3C0800696FEB /* VolumeManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = VolumeManager.m; path = VolumeTester/VolumeManager.m; sourceTree = "<group>"; };
+		A14B5D13230B3BEC00696FEB /* VolumeModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VolumeModule.swift; path = VolumeTester/VolumeModule.swift; sourceTree = "<group>"; };
+		A14B5D15230B3C0800696FEB /* VolumeModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = VolumeModule.m; path = VolumeTester/VolumeModule.m; sourceTree = "<group>"; };
 		B806063558F1EB894629DF51 /* Pods-VolumeTester-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VolumeTester-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-VolumeTester-tvOSTests/Pods-VolumeTester-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		BB0E28841F863A8A54AD9B0B /* Pods-VolumeTester.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VolumeTester.debug.xcconfig"; path = "Target Support Files/Pods-VolumeTester/Pods-VolumeTester.debug.xcconfig"; sourceTree = "<group>"; };
 		BEFD330C9A5CE45C9E5B1E60 /* Pods-VolumeTester.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VolumeTester.release.xcconfig"; path = "Target Support Files/Pods-VolumeTester/Pods-VolumeTester.release.xcconfig"; sourceTree = "<group>"; };
@@ -133,8 +133,8 @@
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				A14B5D13230B3BEC00696FEB /* VolumeManager.swift */,
-				A14B5D15230B3C0800696FEB /* VolumeManager.m */,
+				A14B5D13230B3BEC00696FEB /* VolumeModule.swift */,
+				A14B5D15230B3C0800696FEB /* VolumeModule.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
@@ -542,9 +542,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				A14B5D16230B3C0800696FEB /* VolumeManager.m in Sources */,
+				A14B5D16230B3C0800696FEB /* VolumeModule.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
-				A14B5D14230B3BEC00696FEB /* VolumeManager.swift in Sources */,
+				A14B5D14230B3BEC00696FEB /* VolumeModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  VolumeManager.swift
+//  VolumeModule.swift
 //  VolumeTester
 //
 //  Created by Kaden Wilkinson on 8/19/19.
@@ -8,23 +8,36 @@
 
 import MediaPlayer
 
-@objc(VolumeManager)
-class VolumeManager: NSObject, RCTBridgeModule {
+@objc(VolumeModule)
+class VolumeModule: NSObject, RCTBridgeModule {
   static func moduleName() -> String! {
-    return "VolumeManager"
+    return "VolumeModule"
   }
-  
+
   static func requiresMainQueueSetup() -> Bool {
     return true
   }
-  
+
+  @objc
+  func mute() {
+    DispatchQueue.main.async {
+      guard let slider = self.slider else {
+        print("No Slider")
+        return
+      }
+      DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
+        slider.value = 0.0
+      }
+    }
+  }
+
   @objc
   func currentVolume(_ callback: @escaping RCTResponseSenderBlock) {
     DispatchQueue.main.async {
       callback([AVAudioSession.sharedInstance().outputVolume])
     }
   }
-  
+
   @objc
   func incrementVolume(_ resolve: @escaping RCTPromiseResolveBlock, rejecter: @escaping RCTPromiseRejectBlock) {
     DispatchQueue.main.async {
@@ -38,38 +51,32 @@ class VolumeManager: NSObject, RCTBridgeModule {
       }
     }
   }
-  
-  @objc
-  func decrementVolume(_ resolve: @escaping RCTPromiseResolveBlock, rejecter: @escaping RCTPromiseRejectBlock) {
-    DispatchQueue.main.async {
-      guard let slider = self.slider else {
-        print("No Slider")
-        return
-      }
-      DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
-        slider.increment()
-        resolve(slider.value)
-      }
-    }
-  }
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   let volumeView = MPVolumeView()
   lazy var slider: UISlider? = {
     let s = volumeView.subviews.first(where: { $0 is UISlider }) as? UISlider
     s?.value = AVAudioSession.sharedInstance().outputVolume
     return s
   }()
-  
+
   override init() {
     super.init()
-    
+
     if var topController = UIApplication.shared.keyWindow?.rootViewController {
       while let presentedViewController = topController.presentedViewController {
         topController = presentedViewController
@@ -81,18 +88,18 @@ class VolumeManager: NSObject, RCTBridgeModule {
 
 extension UISlider {
   func increment() {
-    if value > 0.99 {
+//    if value > 0.99 || value.isZero {
       value += 0.1
-    } else {
-      value = 1.0
-    }
+//    } else {
+//      value = 1.0
+//    }
   }
-  
+
   func decrement() {
-    if value > 0.01 {
+//    if value < 0.01 || value == 1.0 {
       value -= 0.1
-    } else {
-      value = 0.0
-    }
+//    } else {
+//      value = 0.0
+//    }
   }
 }

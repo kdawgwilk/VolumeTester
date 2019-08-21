@@ -5,11 +5,16 @@ import android.media.AudioManager
 import com.facebook.react.bridge.*
 
 
-class VolumeManager(reactContext: ReactApplicationContext): ReactContextBaseJavaModule(reactContext) {
+class VolumeModule(reactContext: ReactApplicationContext): ReactContextBaseJavaModule(reactContext) {
     private val audioManager = reactApplicationContext.getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
     override fun getName(): String {
-        return "VolumeManager"
+        return "VolumeModule"
+    }
+
+    @ReactMethod
+    fun mute() {
+        audioManager.setMediaVolume(0)
     }
 
     @ReactMethod
@@ -20,16 +25,12 @@ class VolumeManager(reactContext: ReactApplicationContext): ReactContextBaseJava
     @ReactMethod
     fun incrementVolume(promise: Promise) {
         val newVolume = audioManager.mediaCurrentVolume + 1
-        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, newVolume, AudioManager.FLAG_PLAY_SOUND)
+        audioManager.setMediaVolume(newVolume)
         promise.resolve(getVolumePercent(newVolume))
     }
 
-    @ReactMethod
-    fun decrementVolume(promise: Promise) {
-        val newVolume = audioManager.mediaCurrentVolume - 1
-        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, newVolume, AudioManager.FLAG_PLAY_SOUND)
-        promise.resolve(getVolumePercent(newVolume))
-    }
+
+
 
 
 
@@ -58,6 +59,10 @@ class VolumeManager(reactContext: ReactApplicationContext): ReactContextBaseJava
     }
 }
 
+fun AudioManager.setMediaVolume(volume: Int) {
+    this.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND)
+
+}
 
 val AudioManager.mediaCurrentVolume: Int
     get() = this.getStreamVolume(AudioManager.STREAM_MUSIC)

@@ -1,16 +1,18 @@
 import {NativeModules} from 'react-native';
 
+const {VolumeModule} = NativeModules;
+
 class VolumeManager {
+  static mute() {
+    VolumeModule.mute();
+  }
+
   static currentVolume(handler: (value: number) => void) {
-    NativeModules.VolumeManager.currentVolume(handler);
+    VolumeModule.currentVolume(handler);
   }
 
   static incrementVolume(): Promise<number> {
-    return NativeModules.VolumeManager.incrementVolume();
-  }
-
-  static decrementVolume(): Promise<number> {
-    return NativeModules.VolumeManager.decrementVolume();
+    return VolumeModule.incrementVolume();
   }
 }
 

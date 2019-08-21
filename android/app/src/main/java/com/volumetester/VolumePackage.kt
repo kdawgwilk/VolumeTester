@@ -15,7 +15,7 @@ class VolumePackage: ReactPackage {
 
     override fun createNativeModules(reactContext: ReactApplicationContext): MutableList<NativeModule> {
         val modules = ArrayList<NativeModule>()
-        modules.add(VolumeManager(reactContext))
+        modules.add(VolumeModule(reactContext))
         return modules
     }
 }

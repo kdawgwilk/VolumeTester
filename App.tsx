@@ -30,6 +30,12 @@ const App = () => {
     VolumeManager.currentVolume(setVolume);
   }, []);
 
+  const mute = () => {
+    VolumeManager.mute();
+    LayoutAnimation.easeInEaseOut();
+    setVolume(0);
+  };
+
   const increaseVolume = () => {
     VolumeManager.incrementVolume().then(value => {
       LayoutAnimation.easeInEaseOut();
@@ -37,17 +43,13 @@ const App = () => {
     });
   };
 
-  const decreaseVolume = () => {
-    VolumeManager.decrementVolume().then(value => {
-      LayoutAnimation.easeInEaseOut();
-      setVolume(value);
-    });
-  };
+  const decreaseVolume = () => {};
 
   return (
     <View style={styles.container}>
       <View style={styles.centerContainer}>
         <VolumeSlider value={volume} />
+        <Button title="Mute" onPress={mute} />
         <Button title="Increase Volume" onPress={increaseVolume} />
         <Button title="Decrease Volume" onPress={decreaseVolume} />
       </View>

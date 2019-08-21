@@ -8,10 +8,10 @@
 
 #import <React/RCTBridgeModule.h>
 
-@interface RCT_EXTERN_MODULE(VolumeManager, NSObject)
+@interface RCT_EXTERN_MODULE(VolumeModule, NSObject)
 
+RCT_EXTERN_METHOD(mute)
 RCT_EXTERN_METHOD(currentVolume:(RCTResponseSenderBlock)callback)
 RCT_EXTERN_METHOD(incrementVolume:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
-RCT_EXTERN_METHOD(decrementVolume:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 
 @end
